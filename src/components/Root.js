@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PetList from './PetList';
 import axios from 'axios';
 
@@ -8,18 +8,24 @@ import samplePets from '../petdata';
 
 const Root = () => {
   const [data, setData] = React.useState([])
+  const [loading, setLoading] = React.useState(false)
   // axios just fires
-  async function fetchData() {
-    await axios.get('/api/pets')
-      .then(res => {
-        setData(res.data)
-      }, [data])
-  }
-  React.useEffect(() => {
+  // async function fetchData() {
+  //   await axios.get('/api/pets')
+  //     .then(res => {
+  //       setData(res.data)
+  //     }, [data])
+  // }
 
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true)
+      const res = await axios.get('/api/pets')
+      setData(res.data)
+      setLoading(false)
+    }
     fetchData()
-
-  })
+  }, [])
 
 
   return (

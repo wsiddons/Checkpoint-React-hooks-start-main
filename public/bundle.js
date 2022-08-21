@@ -2587,37 +2587,53 @@ var Root = function Root() {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       data = _React$useState2[0],
-      setData = _React$useState2[1]; // axios just fires
+      setData = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      loading = _React$useState4[0],
+      setLoading = _React$useState4[1]; // axios just fires
+  // async function fetchData() {
+  //   await axios.get('/api/pets')
+  //     .then(res => {
+  //       setData(res.data)
+  //     }, [data])
+  // }
 
 
-  function fetchData() {
-    return _fetchData.apply(this, arguments);
-  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    function fetchData() {
+      return _fetchData.apply(this, arguments);
+    }
 
-  function _fetchData() {
-    _fetchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/pets').then(function (res) {
+    function _fetchData() {
+      _fetchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var res;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                setLoading(true);
+                _context.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get('/api/pets');
+
+              case 3:
+                res = _context.sent;
                 setData(res.data);
-              }, [data]);
+                setLoading(false);
 
-            case 2:
-            case "end":
-              return _context.stop();
+              case 6:
+              case "end":
+                return _context.stop();
+            }
           }
-        }
-      }, _callee);
-    }));
-    return _fetchData.apply(this, arguments);
-  }
+        }, _callee);
+      }));
+      return _fetchData.apply(this, arguments);
+    }
 
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
     fetchData();
-  });
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Adoption Center"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PetList__WEBPACK_IMPORTED_MODULE_1__["default"], {
     pets: data
   }));
